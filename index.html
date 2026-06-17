@@ -331,7 +331,9 @@ const TIKTOK_NA = {
   "2026-06-10": 2086,
   "2026-06-11": 1681,
   "2026-06-12": 1802,
-  "2026-06-13": 1191
+  "2026-06-13": 1191,
+  "2026-06-14": 1393,
+  "2026-06-15": 1460
 };
 
 const TIKTOK_UK = {
@@ -739,7 +741,7 @@ const SEED_FB = {
     },
     "2026-03-14": {
       "reach": 32289,
-      "videhViews": 1387
+      "videoViews": 1387
     },
     "2026-03-15": {
       "reach": 45878,
@@ -1108,6 +1110,10 @@ const SEED_FB = {
     "2026-06-15": {
       "reach": 25641,
       "videoViews": 779
+    },
+    "2026-06-16": {
+      "reach": null,
+      "videoViews": 590
     }
   },
   "ES": {
@@ -1770,6 +1776,10 @@ const SEED_FB = {
     "2026-06-15": {
       "reach": 128276,
       "videoViews": 3254
+    },
+    "2026-06-16": {
+      "reach": null,
+      "videoViews": 3552
     }
   },
   "FR": {
@@ -2432,6 +2442,10 @@ const SEED_FB = {
     "2026-06-15": {
       "reach": 131978,
       "videoViews": 113
+    },
+    "2026-06-16": {
+      "reach": null,
+      "videoViews": 106
     }
   },
   "NA": {
@@ -3094,6 +3108,10 @@ const SEED_FB = {
     "2026-06-15": {
       "reach": 1198903,
       "videoViews": 209879
+    },
+    "2026-06-16": {
+      "reach": null,
+      "videoViews": 214534
     }
   },
   "UK": {
@@ -3756,6 +3774,10 @@ const SEED_FB = {
     "2026-06-15": {
       "reach": 95690,
       "videoViews": 144
+    },
+    "2026-06-16": {
+      "reach": null,
+      "videoViews": 331
     }
   }
 };
@@ -3925,7 +3947,8 @@ const SEED_IG = {
     "2026-06-12": 5915,
     "2026-06-13": 7091,
     "2026-06-14": 9703,
-    "2026-06-15": 12122
+    "2026-06-15": 12122,
+    "2026-06-16": 8694
   },
   "ES": {
     "2026-01-01": 729916,
@@ -4092,7 +4115,8 @@ const SEED_IG = {
     "2026-06-12": 61938,
     "2026-06-13": 61996,
     "2026-06-14": 80431,
-    "2026-06-15": 82652
+    "2026-06-15": 82652,
+    "2026-06-16": 73050
   },
   "FR": {
     "2026-01-01": 27533,
@@ -4259,7 +4283,8 @@ const SEED_IG = {
     "2026-06-12": 49180,
     "2026-06-13": 36922,
     "2026-06-14": 52408,
-    "2026-06-15": 57506
+    "2026-06-15": 57506,
+    "2026-06-16": 53275
   },
   "NA": {
     "2026-01-01": 593624,
@@ -4426,7 +4451,8 @@ const SEED_IG = {
     "2026-06-12": 174203,
     "2026-06-13": 246178,
     "2026-06-14": 233404,
-    "2026-06-15": 238036
+    "2026-06-15": 238036,
+    "2026-06-16": 221282
   },
   "UK": {
     "2026-01-01": 30501,
@@ -4593,10 +4619,11 @@ const SEED_IG = {
     "2026-06-12": 10051,
     "2026-06-13": 10411,
     "2026-06-14": 15455,
-    "2026-06-15": 13748
+    "2026-06-15": 13748,
+    "2026-06-16": 11106
   }
 };
-const SEED_DATE = 'June 15, 2026';
+const SEED_DATE = 'June 16, 2026';
 
 // ── STATE ─────────────────────────────────────────────────────────────────────
 let currentRange    = 30;
@@ -4702,7 +4729,7 @@ function smFindKey(obj, key, _depth) {
   }
   if (obj[key] !== undefined) return obj[key];
   for (const v of Object.values(obj)) {
-    const found = smFindKey(sv, key, (_depth||0)+1);
+    const found = smFindKey(v, key, (_depth||0)+1);
     if (found !== undefined) return found;
   }
   return undefined;
@@ -4724,7 +4751,7 @@ function smFindDataArray(obj, _depth) {
   return null;
 }
 
-// ── SUPERMETRICS QETEYX��────────────────────────────────────────────────────────
+// ── SUPERMETRICS QUERY ────────────────────────────────────────────────────────
 async function smQuery(params) {
   // Step 1: Submit
   let queryRaw;
@@ -4819,7 +4846,7 @@ async function loadAll() {
 
   const [igRes, fbNARes, fbUKRes, fbESRes, fbFRRes, fbDERes] = await Promise.allSettled([
     smQuery({ ds_id:'IGI', ds_accounts:IG_ALL_ACCTS, fields:'date,name,reach', ...dp }),
-    smQuery({ ds_id:'FB',  ds_accounts:FB_ACCTS.NA,  fields:'Date,page_impr%ssions_unique,page_media_view_organic', ...dp }),
+    smQuery({ ds_id:'FB',  ds_accounts:FB_ACCTS.NA,  fields:'Date,page_impressions_unique,page_media_view_organic', ...dp }),
     smQuery({ ds_id:'FB',  ds_accounts:FB_ACCTS.UK,  fields:'Date,page_impressions_unique,page_media_view_organic', ...dp }),
     smQuery({ ds_id:'FB',  ds_accounts:FB_ACCTS.ES,  fields:'Date,page_impressions_unique,page_media_view_organic', ...dp }),
     smQuery({ ds_id:'FB',  ds_accounts:FB_ACCTS.FR,  fields:'Date,page_impressions_unique,page_media_view_organic', ...dp }),
